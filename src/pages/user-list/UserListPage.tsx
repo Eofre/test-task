@@ -1,4 +1,5 @@
-import { UiButton, UiHeaderLayout } from "shared/ui";
+import { LogoutButton } from "features/auth";
+import { UiHeaderLayout } from "shared/ui";
 import { UserList } from "widgets/user";
 
 export function UserListPage() {
@@ -15,7 +16,7 @@ export function UserListPage() {
             </p>
           </div>
         }
-        rightElement={<UiButton variant="outline-light">Выход</UiButton>}
+        rightElement={<LogoutButton />}
       />
       <main>
         <section>

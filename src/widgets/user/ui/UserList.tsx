@@ -11,7 +11,7 @@ export function UserList() {
   });
   const users = data?.data;
   const totalItems = data?.total;
-  const isDisabledButton = totalItems === perPage;
+  const isDeleteButton = totalItems === perPage;
   const handleClick = () => setPerPage(perPage + 4);
 
   return (
@@ -26,14 +26,11 @@ export function UserList() {
           </>
         )}
       </ul>
-      <UiButton
-        variant="outline-black"
-        disabled={isDisabledButton}
-        icon={showIcon}
-        onClick={handleClick}
-      >
-        Показать еще
-      </UiButton>
+      {!isDeleteButton && (
+        <UiButton variant="outline-black" icon={showIcon} onClick={handleClick}>
+          Показать еще
+        </UiButton>
+      )}
     </div>
   );
 }

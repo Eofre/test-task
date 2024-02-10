@@ -1,6 +1,5 @@
 import { useGetUserByIdQuery } from "entities/user";
 import {
-  UiButton,
   UiButtonGoBack,
   UiContact,
   UiContainer,
@@ -10,6 +9,7 @@ import {
 } from "shared/ui";
 import { Navigate, useParams } from "react-router-dom";
 import { ROUTES } from "shared/constants";
+import { LogoutButton } from "features/auth";
 
 export function UserInfoPage() {
   const { userId } = useParams();
@@ -40,13 +40,13 @@ export function UserInfoPage() {
               description={<p className="text-3xl mt-2">Партнер</p>}
             />
           }
-          rightElement={<UiButton variant="outline-light">Выход</UiButton>}
+          rightElement={<LogoutButton />}
         />
         <main>
           <section>
             <UiContainer>
               <div className="flex md:flex-row flex-col-reverse md:gap-40 gap-10">
-                <div className="max-w-2xl">
+                <div>
                   Клиенты видят в нем эксперта по вопросам разработки
                   комплексных решений финансовых продуктов, включая такие
                   аспекты, как организационная структура, процессы, аналитика и

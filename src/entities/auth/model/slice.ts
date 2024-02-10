@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface ISessionSliceState {
   accessToken: string | undefined;
+  id: number | undefined;
 }
 
 const initialState: ISessionSliceState = {
   accessToken: undefined,
+  id: undefined,
 };
 
 export const sessionSlice = createSlice({

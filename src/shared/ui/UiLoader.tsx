@@ -1,10 +1,22 @@
-export function UiLoader() {
+interface IUiLoaderProps {
+  full?: boolean;
+  size?: "small" | "middle" | "large";
+}
+
+export function UiLoader(props: IUiLoaderProps) {
+  const { full, size = "large" } = props;
+  const fullClasses = full
+    ? "absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    : "";
+
+  const sizeClasses =
+    size === "small" ? "w-4 h-4" : size === "middle" ? "w-6 h-6" : "w-8 h-8";
   return (
-    <div className="absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div className={`${fullClasses}`}>
       <div>
         <svg
           aria-hidden="true"
-          className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-violet-600"
+          className={`inline ${sizeClasses} text-gray-200 animate-spin  fill-violet`}
           viewBox="0 0 100 101"
           fill="none"
         >

@@ -6,7 +6,7 @@ export const commonApi = createApi({
   tagTypes: [SESSION_TAG, USER_TAG],
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://reqres.in/api",
+    baseUrl: config.API_ENDPOINT,
   }),
   endpoints: () => ({}),
 });

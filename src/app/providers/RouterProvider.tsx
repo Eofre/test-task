@@ -1,4 +1,5 @@
-import { AuthLayout, GuestLayout } from "pages/layouts";
+import { AuthGuard, GuestGuard } from "entities/auth";
+import { AuthLayout, MainLayout } from "pages/layouts";
 import { lazy } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { ROUTES } from "shared/constants";
@@ -12,7 +13,11 @@ export function Router() {
   return useRoutes([
     { path: "*", element: <Navigate to={ROUTES.HOME} replace /> },
     {
-      element: <AuthLayout />,
+      element: (
+        <AuthGuard>
+          <MainLayout />
+        </AuthGuard>
+      ),
       children: [
         {
           path: ROUTES.HOME,
@@ -25,7 +30,11 @@ export function Router() {
       ],
     },
     {
-      element: <GuestLayout />,
+      element: (
+        <GuestGuard>
+          <AuthLayout />
+        </GuestGuard>
+      ),
       children: [
         {
           path: ROUTES.SIGN_IN,

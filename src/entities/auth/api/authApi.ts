@@ -1,25 +1,28 @@
-import { commonApi, SESSION_TAG } from "shared/api";
-import { ISignInDto } from "./types";
+import { commonApi } from "shared/api";
+import {
+  ISignInRequest,
+  ISignInResponse,
+  ISignUpRequest,
+  ISignUpResponse,
+} from "./types";
 
 export const authApi = commonApi.injectEndpoints({
   endpoints: (build) => ({
-    signIn: build.mutation({
+    signIn: build.mutation<ISignInResponse, ISignInRequest>({
       query: (body) => ({
         url: `/login`,
         method: "POST",
         body,
       }),
-      invalidatesTags: [SESSION_TAG],
     }),
-    signUp: build.mutation({
+    signUp: build.mutation<ISignUpResponse, ISignUpRequest>({
       query: (body) => ({
         url: `/register`,
         method: "POST",
         body,
       }),
-      invalidatesTags: [SESSION_TAG],
     }),
   }),
 });
 
-export const { useSignInMutation } = authApi;
+export const { useSignInMutation, useSignUpMutation } = authApi;

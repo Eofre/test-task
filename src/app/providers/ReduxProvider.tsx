@@ -1,6 +1,8 @@
-import { appStore } from "app/store/appStore";
+import { appStore, persistedStore } from "app/store/appStore";
 import { ReactNode } from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { UiLoader } from "shared/ui";
 
 type ReduxProviderProps = {
   children?: ReactNode;
@@ -8,5 +10,11 @@ type ReduxProviderProps = {
 
 export function ReduxProvider(props: ReduxProviderProps) {
   const { children } = props;
-  return <Provider store={appStore}>{children}</Provider>;
+  return (
+    <Provider store={appStore}>
+      <PersistGate loading={<UiLoader />} persistor={persistedStore}>
+        {children}
+      </PersistGate>
+    </Provider>
+  );
 }
