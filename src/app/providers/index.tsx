@@ -1,13 +1,13 @@
 import { ReduxProvider } from "./ReduxProvider";
 import { Router } from "./RouterProvider";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 export function Provider() {
   return (
     <ReduxProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Router />
-      </BrowserRouter>
+      </HashRouter>
     </ReduxProvider>
   );
 }
