@@ -9,7 +9,7 @@ import { UiButton, UiInput, UiInputPassword } from "shared/ui";
 
 export function SignInForm() {
   const dispatch = useDispatch();
-  const [signIn, { data: response, isSuccess, isLoading }] =
+  const [signIn, { data: response, isSuccess, isLoading, isError }] =
     useSignInMutation();
 
   const {
@@ -48,6 +48,7 @@ export function SignInForm() {
         label="Пароль"
         errorMessage={errors.password?.message}
       />
+      {isError && <p className="text-red-500">Ошибка!</p>}
       <UiButton loading={isLoading} type="submit" block>
         Войти
       </UiButton>

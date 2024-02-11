@@ -10,7 +10,7 @@ export function UiAvatar(props: IUiAvatarProps) {
     <img
       src={imageUrl}
       alt={alt}
-      className="inline-block w-32 h-32 rounded-full"
+      className="inline-block w-36 h-36 rounded-full"
     />
   );
 }

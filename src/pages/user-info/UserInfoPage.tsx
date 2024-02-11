@@ -20,7 +20,7 @@ export function UserInfoPage() {
     isError,
   } = useGetUserByIdQuery(Number(userId));
 
-  if (isLoading) return <UiLoader />;
+  if (isLoading) return <UiLoader full />;
 
   if (isError) return <Navigate to={ROUTES.HOME} replace />;
 
@@ -45,8 +45,8 @@ export function UserInfoPage() {
         <main>
           <section>
             <UiContainer>
-              <div className="flex md:flex-row flex-col-reverse md:gap-40 gap-10">
-                <div>
+              <div className="flex md:flex-row md:pl-24 flex-col-reverse md:gap-40 gap-10">
+                <div className="max-w-2xl">
                   Клиенты видят в нем эксперта по вопросам разработки
                   комплексных решений финансовых продуктов, включая такие
                   аспекты, как организационная структура, процессы, аналитика и
