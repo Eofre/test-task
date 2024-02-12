@@ -15,7 +15,7 @@ export function UserCard(props: IUserCardProps) {
   return (
     <Link
       to={ROUTES.USER_PAGE(id)}
-      className="block text-center shadow p-10 w-60 h-60 rounded-md  border border-transparent transition duration-300 ease-in-out hover:border-black"
+      className="block text-center shadow p-10 w-60 h-60 rounded-md  border border-transparent transition duration-300 ease-in-out md:hover:border-black"
     >
       <UiAvatar imageUrl={avatar} alt="аватар пользователя" />
       <h2 className="mt-2 text-xl">
