@@ -1,5 +1,5 @@
 import { UserCard } from "entities/user";
-import { UiButton, UiLoader } from "shared/ui";
+import { UiButton } from "shared/ui";
 import showIcon from "assets/show.svg";
 import { useUserList } from "features/users";
 
@@ -11,7 +11,6 @@ export function UserList() {
   return (
     <div className="flex flex-col items-center gap-5">
       <ul className="max-w-5xl flex flex-wrap gap-5 justify-center">
-        {isLoading && <UiLoader />}
         {users && (
           <>
             {users.map((user) => (
@@ -22,6 +21,7 @@ export function UserList() {
       </ul>
       {!isAllUploadUsers && (
         <UiButton
+          loading={isLoading}
           variant="outline-black"
           icon={showIcon}
           onClick={handleClickUploadUsers}
