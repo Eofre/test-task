@@ -1,4 +1,3 @@
-import { useGetUserByIdQuery } from "entities/user";
 import {
   UiButtonGoBack,
   UiContact,
@@ -7,24 +6,17 @@ import {
   UiLoader,
   UiProfile,
 } from "shared/ui";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { ROUTES } from "shared/constants";
 import { LogoutButton } from "features/auth";
+import { useGetUserByIdParams } from "features/users";
 
 export function UserInfoPage() {
-  const { userId } = useParams();
-  const {
-    data: user,
-    isSuccess,
-    isLoading,
-    isError,
-  } = useGetUserByIdQuery(Number(userId));
+  const { user, isLoading } = useGetUserByIdParams();
 
   if (isLoading) return <UiLoader full />;
 
-  if (isError) return <Navigate to={ROUTES.HOME} replace />;
-
-  if (isSuccess)
+  if (user)
     return (
       <>
         <UiHeaderLayout
@@ -74,4 +66,6 @@ export function UserInfoPage() {
         </main>
       </>
     );
+
+  return <Navigate to={ROUTES.HOME} replace />;
 }

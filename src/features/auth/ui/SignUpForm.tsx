@@ -1,17 +1,12 @@
-import { ISignUpRequest, useSignUpMutation } from "entities/auth";
-import { setToken } from "entities/auth/model/slice";
-import { useEffect } from "react";
+import { ISignUpRequest } from "entities/auth";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ROUTES } from "shared/constants";
 import { UiButton, UiInput, UiInputPassword } from "shared/ui";
+import { useSignUp } from "../model/use-sign-up";
 
 export function SignUpForm() {
-  const dispatch = useDispatch();
-  const [signUp, { data: response, isSuccess, isLoading, isError }] =
-    useSignUpMutation();
-
+  const { signUp, isError, isLoading } = useSignUp();
   const {
     register,
     watch,
@@ -23,12 +18,6 @@ export function SignUpForm() {
     signUp(data);
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(setToken({ accessToken: response?.token }));
-    }
-  }, [isSuccess, response, dispatch]);
-
   return (
     <form
       className="flex flex-col gap-5 items-start"
@@ -37,6 +26,14 @@ export function SignUpForm() {
       <UiInput
         {...register("firstName", {
           required: "Поле обязательно к заполнению!",
+          maxLength: {
+            value: 30,
+            message: "Имя должно содержать не более 30 символов",
+          },
+          pattern: {
+            value: /^[A-Za-zА-Яа-яЁё\s]+$/,
+            message: "Имя может содержать только буквы и пробелы",
+          },
         })}
         errorMessage={errors.firstName?.message}
         label="Имя"
@@ -44,6 +41,10 @@ export function SignUpForm() {
       <UiInput
         {...register("email", {
           required: "Поле обязательно к заполнению!",
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: "Неверный формат электронной почты",
+          },
         })}
         label="Электронная почта"
         type="email"
@@ -52,6 +53,10 @@ export function SignUpForm() {
       <UiInputPassword
         {...register("password", {
           required: "Поле обязательно к заполнению!",
+          minLength: {
+            value: 6,
+            message: "Пароль должен содержать не менее 6 символов",
+          },
         })}
         label="Пароль"
         errorMessage={errors.password?.message}

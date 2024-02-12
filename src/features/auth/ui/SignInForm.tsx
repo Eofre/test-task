@@ -1,16 +1,12 @@
-import { ISignInRequest, useSignInMutation } from "entities/auth";
-import { setToken } from "entities/auth/model/slice";
-import { useEffect } from "react";
+import { ISignInRequest } from "entities/auth";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ROUTES } from "shared/constants";
 import { UiButton, UiInput, UiInputPassword } from "shared/ui";
+import { useSignIn } from "../model/use-sign-in";
 
 export function SignInForm() {
-  const dispatch = useDispatch();
-  const [signIn, { data: response, isSuccess, isLoading, isError }] =
-    useSignInMutation();
+  const { signIn, isLoading, isError } = useSignIn();
 
   const {
     register,
@@ -22,12 +18,6 @@ export function SignInForm() {
     signIn(data);
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(setToken({ accessToken: response?.token }));
-    }
-  }, [isSuccess, response, dispatch]);
-
   return (
     <form
       className="flex flex-col gap-5 items-start"
@@ -36,6 +26,10 @@ export function SignInForm() {
       <UiInput
         {...register("email", {
           required: "Поле обязательно к заполнению!",
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: "Неверный формат электронной почты",
+          },
         })}
         label="Электронная почта"
         errorMessage={errors.email?.message}
